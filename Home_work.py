@@ -1,7 +1,8 @@
 from datetime import datetime
+import random
 import re
 
-
+#Task #1
 def get_days_from_today(date_str: str) -> int:
 
     if not isinstance(date_str, str):
@@ -21,10 +22,7 @@ def get_days_from_today(date_str: str) -> int:
     except TypeError:
         print("Invalid Type should be string")
 
-
-import random
-
-
+#Task #2
 def get_numbers_ticket(min, max, quantity):
 
     if (min < 1 or max > 1000) or (quantity < min or quantity > max):
@@ -39,13 +37,7 @@ def get_numbers_ticket(min, max, quantity):
 
     return sorted(list_num)
 
-
-lottery_numbers = get_numbers_ticket(1, 49, 6)
-
-
-import re
-
-
+#Task #3 (additional)
 def normalize_phone(phone: str) -> list[str]:
 
     pattern = r"[a-zA-Z;,\-:!\.\/\\()]"
