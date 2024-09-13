@@ -26,19 +26,20 @@ class ActionHandler:
 
     def command_handler(self, cmd: str, params: list[str]) -> None:
         action = self.actions.get(cmd)
-        if action:
-            match cmd:
-                case "hello" | "help":
-                    action()
-                case "all" | "birthdays":
-                    action(self.book)
-                case "exit" | "close":
-                    print('Good bye!')
-                    exit()
-                case _:
-                    action(params, self.book)
-        else:
-            print("Invalid command")
+        if action is None:
+            print('Invalid command')
+            return
+
+        match cmd:
+            case "hello" | "help":
+                action()
+            case "all" | "birthdays":
+                action(self.book)
+            case "exit" | "close":
+                print('Good bye!')
+                exit()
+            case _:
+                action(params, self.book)
 
 
 def main():
