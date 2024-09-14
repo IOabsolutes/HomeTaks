@@ -4,7 +4,8 @@ from adressbook import AddressBook, Record
 
 @input_error
 def add_contact(params, book: AddressBook) -> None:
-    name, phone = params
+    name = params[0]
+    phone = params[1] if len(params) > 1 else None
     record = book.find(name)
     message = 'Contact updated.'
     if record is None:

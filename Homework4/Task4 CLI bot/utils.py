@@ -27,37 +27,27 @@ def input_error(func):
     def inner(params: list[str], book: AddressBook) -> None:
         try:
             if func.__name__ in ["add_contact", "change_contact"]:
-                params_checker(params, 2, func_name=func.__name__)
-
-                name, *phone = params
+                name = params[0]
+                phone = params[1:] if len(params) > 1 else None
 
                 if not re.match(r'^[a-zA-z/s-]+$', name):
                     raise ValueError("Name contain unacceptable charters ")
 
-                if len(phone) > 1:
-                    phone_checker(phone[1])
-                else:
-                    phone_checker(phone[0])
+                if phone:
+                    if len(phone) > 1:
+                        phone_checker(phone[1])
+                    else:
+                        phone_checker(phone[0])
 
                 key_error_checker(name, book, func_name=func.__name__)
 
-            elif func.__name__ in ["show_phone"]:
-                params_checker(params, 1, func_name=func.__name__)
-
+            elif func.__name__ in ["add_birthday", "show_birthday", "show_phone"]:
                 name = params[0]
 
                 key_error_checker(name, book, func.__name__)
 
-            elif func.__name__ in ["add_birthday", "show_birthday"]:
-
-                if len(params) < 2:
-                    name = params[0]
-                else:
-                    name, *_ = params
-
-                key_error_checker(name, book, func.__name__)
-
             return func(params, book)
+
         except (IndexError, ValueError, KeyError, TypeError) as e:
             print(e)
 
